@@ -13,3 +13,13 @@ export_presets.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# ignore tailwind css executables downloaded for wsl
+tailwindcss-linux-x64
+
+# air binary
+tmp/
+
+# ignore tailwind css executables downloaded for wsl
+tailwindcss-linux-x64
+node_modules/

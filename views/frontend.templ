@@ -1,0 +1,61 @@
+package views
+
+templ Index() {
+	<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAML Query Tool</title>
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <link href="assets/tailwind.css" rel="stylesheet">
+  </head>
+  <body class="bg-gray-100 p-6">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- Section 1: YAML Input Block -->
+      <div class="bg-white shadow-md rounded-lg p-6 mb-4">
+        <h2 class="text-xl font-semibold mb-4">YAML Input</h2>
+        <textarea id="yaml-input" class="w-full h-64 border border-gray-300 p-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Paste your YAML code here..."></textarea>
+      </div>
+
+      <!-- Section 2: Collapsible Filters and Output -->
+      <div id="filter-block" class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4">Filters and Output</h2>
+
+        <!-- Toggle button to collapse/expand input section -->
+        <button hx-get="/filter" hx-target="#filter-block"
+                class="bg-blue-500 text-white px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                hx-swap="afterbegin">
+          Add Filters
+        </button>
+        
+        @Filter()
+      </div>
+
+    </div>
+  </body>
+  </html>
+}
+
+templ Filter() {
+  <div id="filters-section" class="mt-4">
+    <!-- Filter Input -->
+    <div class="mb-4">
+      <label for="filter" class="block text-sm font-medium text-gray-700">Enter Filters:</label>
+      <input type="text" id="filter" name="filter" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your filters">
+      <button hx-post="/filter" hx-target="#output" hx-swap="innerHtml" class="bg-blue-500 text-white px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-2">Run Query</button>
+    </div>
+
+    <!-- Output Section -->
+    <div>
+      <h3 class="text-lg font-medium">Output:</h3>
+      <div id="output" class="bg-gray-100 p-4 rounded-md border border-gray-300 h-32 mt-2">
+      </div>
+    </div>
+  </div>
+}
+
+templ FilterResult(Result string) {
+  <pre>{ Result }</pre>
+}
